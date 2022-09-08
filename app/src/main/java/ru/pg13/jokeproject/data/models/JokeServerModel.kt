@@ -2,18 +2,12 @@ package ru.pg13.jokeproject.data.models
 
 import com.google.gson.annotations.SerializedName
 
+//Серверная модель
 data class JokeServerModel(
     @SerializedName("type")
     private val type: String,
     @SerializedName("value")
     private val value: Value,
-)
-
-data class Value(
-    @SerializedName("id")
-    val id: Int,
-    @SerializedName("joke")
-    val joke: String,
-    @SerializedName("categories")
-    private val categories: List<String>,
-)
+) {
+    fun toJoke() = Joke(type, value)
+}

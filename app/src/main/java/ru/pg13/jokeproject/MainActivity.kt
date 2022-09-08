@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import retrofit2.Call
 import retrofit2.Response
-import ru.pg13.jokeproject.data.models.JokeServerModel
+import ru.pg13.jokeproject.data.models.Joke
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,15 +17,15 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = (application as MyApplication).viewModel
 
-        viewModel.getJoke().enqueue(object : retrofit2.Callback<JokeServerModel> {
+        viewModel.getJoke().enqueue(object : retrofit2.Callback<Joke> {
             override fun onResponse(
-                call: Call<JokeServerModel>,
-                response: Response<JokeServerModel>
+                call: Call<Joke>,
+                response: Response<Joke>
             ) {
                 Log.d("test123", "response: ${response.body()}")
             }
 
-            override fun onFailure(call: Call<JokeServerModel>, t: Throwable) {
+            override fun onFailure(call: Call<Joke>, t: Throwable) {
                 Log.d("test123", "throwable: ${t.message}")
             }
 
