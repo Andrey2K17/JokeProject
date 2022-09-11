@@ -4,6 +4,7 @@ import android.app.Application
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.pg13.jokeproject.data.ApiService
+import ru.pg13.jokeproject.data.CloudDataSourceImpl
 
 class MyApplication: Application() {
 
@@ -15,6 +16,6 @@ class MyApplication: Application() {
             .baseUrl("https://www.google.com")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        viewModel = ViewModel(retrofit.create(ApiService::class.java))
+        viewModel = ViewModel(CloudDataSourceImpl(retrofit.create(ApiService::class.java)) )
     }
 }

@@ -6,27 +6,29 @@ import android.util.Log
 import retrofit2.Call
 import retrofit2.Response
 import ru.pg13.jokeproject.data.models.Joke
+import ru.pg13.jokeproject.databinding.ActivityMainBinding
+import ru.pg13.jokeproject.interfaces.DataCallback
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: ViewModel
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         viewModel = (application as MyApplication).viewModel
-
-        viewModel.getJoke().enqueue(object : retrofit2.Callback<Joke> {
-            override fun onResponse(
-                call: Call<Joke>,
-                response: Response<Joke>
-            ) {
-                Log.d("test123", "response: ${response.body()}")
+        viewModel.init(object : DataCallback {
+            override fun provideText(text: String) {
+                binding.textView.text = text
             }
 
-            override fun onFailure(call: Call<Joke>, t: Throwable) {
-                Log.d("test123", "throwable: ${t.message}")
+            override fun provideIconRes(id: Int) {
+                binding.imageView.setImageResource(id)
             }
 
         })

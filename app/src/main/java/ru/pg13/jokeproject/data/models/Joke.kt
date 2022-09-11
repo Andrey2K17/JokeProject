@@ -6,7 +6,9 @@ import com.google.gson.annotations.SerializedName
 data class Joke(
     private val type: String,
     private val value: Value,
-)
+) {
+    fun toBaseJoke() = BaseJoke(value.joke)
+}
 
 data class Value(
     @SerializedName("id")
